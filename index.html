@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: #f5f5f3; }
+.app { display: flex; height: 100vh; background: #fff; }
+.sidebar { width: 220px; min-width: 220px; background: #f5f5f3; border-right: 0.5px solid #ddd; display: flex; flex-direction: column; }
+.sidebar-logo { padding: 18px 16px 14px; border-bottom: 0.5px solid #ddd; }
+.sidebar-logo span { font-size: 15px; font-weight: 500; color: #1a1a1a; }
+.sidebar-logo span em { color: #1D9E75; font-style: normal; }
+.nav-section { padding: 12px 8px 4px; font-size: 11px; color: #999; letter-spacing: 0.05em; text-transform: uppercase; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 12px; margin: 1px 4px; border-radius: 8px; cursor: pointer; font-size: 13.5px; color: #666; }
+.nav-item:hover { background: #fff; color: #1a1a1a; }
+.nav-item.active { background: #fff; color: #1a1a1a; font-weight: 500; border: 0.5px solid #ddd; }
+.nav-item i { font-size: 16px; }
+.main { flex: 1; overflow-y: auto; background: #fff; }
+.screen { display: none; padding: 24px 28px; }
+.screen.active { display: block; }
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.topbar h1 { font-size: 18px; font-weight: 500; color: #1a1a1a; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; border: 0.5px solid #ccc; background: #fff; color: #1a1a1a; }
+.btn:hover { background: #f5f5f3; }
+.btn.primary { background: #1D9E75; color: #fff; border-color: #1D9E75; }
+.btn.primary:hover { background: #0F6E56; }
+.cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+.metric-card { background: #f5f5f3; border-radius: 8px; padding: 14px 16px; }
+.metric-card .label { font-size: 12px; color: #666; margin-bottom: 6px; }
+.metric-card .value { font-size: 22px; font-weight: 500; color: #1a1a1a; }
+.metric-card .sub { font-size: 12px; color: #999; margin-top: 2px; }
+.section-title { font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 12px; }
+.activity-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.activity-card:hover { border-color: #bbb; }
+.activity-info .title { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+.activity-info .meta { font-size: 12px; color: #666; margin-top: 3px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+.badge.green { background: #E1F5EE; color: #0F6E56; }
+.badge.amber { background: #FAEEDA; color: #854F0B; }
+.badge.blue { background: #E6F1FB; color: #185FA5; }
+.badge.gray { background: #F1EFE8; color: #5F5E5A; }
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; z-index: 10; }
+.modal { background: #fff; border-radius: 12px; border: 0.5px solid #ddd; padding: 24px; width: 440px; }
+.modal h2 { font-size: 16px; font-weight: 500; margin-bottom: 18px; color: #1a1a1a; }
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 12px; color: #666; margin-bottom: 6px; display: block; }
+.form-input { width: 100%; padding: 8px 12px; border-radius: 8px; border: 0.5px solid #ccc; font-size: 13px; color: #1a1a1a; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 0.5px solid #ddd; }
+.toggle-label { font-size: 13px; color: #1a1a1a; }
+.toggle-sub { font-size: 11px; color: #999; }
+.toggle { width: 36px; height: 20px; border-radius: 999px; background: #1D9E75; position: relative; cursor: pointer; }
+.toggle.off { background: #ccc; }
+.toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: left 0.2s; }
+.toggle.off::after { left: 3px; }
+.toggle:not(.off)::after { left: 19px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: #ddd; }
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-dot { position: absolute; left: -17px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #1D9E75; border: 2px solid #fff; }
+.tl-dot.gray { background: #ccc; }
+.tl-content { background: #f5f5f3; border-radius: 8px; padding: 10px 14px; }
+.tl-meta { font-size: 11px; color: #999; margin-bottom: 4px; }
+.tl-text { font-size: 13px; color: #1a1a1a; }
+.ai-bar { height: 8px; border-radius: 999px; background: #eee; overflow: hidden; margin: 4px 0; }
+.ai-bar-fill { height: 100%; border-radius: 999px; }
+.diff-block { font-size: 12px; font-family: monospace; padding: 10px 12px; border-radius: 8px; background: #f5f5f3; line-height: 1.7; }
+.diff-add { color: #0F6E56; background: #E1F5EE; display: inline; }
+.diff-del { color: #993C1D; background: #FAECE7; text-decoration: line-through; display: inline; }
+.diff-neutral { color: #666; }
+.student-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid #eee; }
+.student-row:last-child { border-bottom: none; }
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: #E6F1FB; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: #185FA5; }
+.progress-bar { height: 5px; border-radius: 999px; background: #eee; overflow: hidden; width: 80px; }
+.progress-fill { height: 100%; border-radius: 999px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-logo"><span><em>traza</em>educa</span></div>
+    <div class="nav-section">Menú</div>
+    <div class="nav-item active" data-screen="dashboard" onclick="go('dashboard')"><i class="ti ti-layout-dashboard"></i> Dashboard</div>
+    <div class="nav-item" data-screen="actividades" onclick="go('actividades')"><i class="ti ti-clipboard-list"></i> Actividades</div>
+    <div class="nav-item" data-screen="alumnos" onclick="go('alumnos')"><i class="ti ti-users"></i> Alumnos</div>
+    <div class="nav-item" data-screen="versiones" onclick="go('versiones')"><i class="ti ti-history"></i> Versiones</div>
+    <div class="nav-item" data-screen="comparar" onclick="go('comparar')"><i class="ti ti-columns"></i> Comparar versiones</div>
+  </div>
+  <div class="main">
+
+    <div id="screen-dashboard" class="screen active">
+      <div class="topbar"><h1>Dashboard</h1><span style="font-size:12px;color:#666;">3° B · Historia</span></div>
+      <div class="cards-grid">
+        <div class="metric-card"><div class="label">Actividades activas</div><div class="value">4</div><div class="sub">2 con entrega esta semana</div></div>
+        <div class="metric-card"><div class="label">Alumnos activos</div><div class="value">28</div><div class="sub">3 sin entregas</div></div>
+        <div class="metric-card"><div class="label">Uso de IA detectado</div><div class="value">12</div><div class="sub">trabajos con intervención</div></div>
+        <div class="metric-card"><div class="label">Promedio de versiones</div><div class="value">3.4</div><div class="sub">por trabajo entregado</div></div>
+      </div>
+      <div class="section-title">Actividades recientes</div>
+      <div class="activity-card" onclick="go('actividades')">
+        <div class="activity-info"><div class="title">La Revolución Industrial — Análisis de fuentes</div><div class="meta">Vence 14 mayo · 22/28 entregas</div></div>
+        <span class="badge green">IA permitida</span>
+      </div>
+      <div class="activity-card" onclick="go('actividades')">
+        <div class="activity-info"><div class="title">Primer parcial — Ensayo argumentativo</div><div class="meta">Vence 20 mayo · 18/28 entregas</div></div>
+        <span class="badge amber">IA restringida</span>
+      </div>
+      <div class="activity-card" onclick="go('actividades')">
+        <div class="activity-info"><div class="title">TP grupal — Línea de tiempo siglo XX</div><div class="meta">Vence 28 mayo · 8/28 entregas</div></div>
+        <span class="badge blue">IA como apoyo</span>
+      </div>
+    </div>
+
+    <div id="screen-actividades" class="screen">
+      <div class="topbar"><h1>Actividades</h1><button class="btn primary" onclick="showModal()"><i class="ti ti-plus"></i> Nueva actividad</button></div>
+      <div class="activity-card">
+        <div class="activity-info"><div class="title">La Revolución Industrial — Análisis de fuentes</div><div class="meta">Entrega: 14 mayo · Individual</div></div>
+        <div style="display:flex;gap:8px;align-items:center;"><span class="badge green">IA permitida</span><button class="btn" onclick="go('versiones')"><i class="ti ti-eye"></i> Ver seguimiento</button></div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-info"><div class="title">Primer parcial — Ensayo argumentativo</div><div class="meta">Entrega: 20 mayo · Individual</div></div>
+        <div style="display:flex;gap:8px;align-items:center;"><span class="badge amber">IA restringida</span><button class="btn" onclick="go('versiones')"><i class="ti ti-eye"></i> Ver seguimiento</button></div>
+      </div>
+      <div id="modal-new" style="display:none;">
+        <div class="modal-overlay">
+          <div class="modal">
+            <h2>Nueva actividad</h2>
+            <div class="form-group"><label class="form-label">Nombre de la actividad</label><input class="form-input" type="text" placeholder="Ej: TP sobre la Revolución Francesa" /></div>
+            <div class="form-group"><label class="form-label">Fecha de entrega</label><input class="form-input" type="date" /></div>
+            <div class="form-group"><label class="form-label">Consigna</label><textarea class="form-input" rows="3" placeholder="Describí qué deben hacer los alumnos..."></textarea></div>
+            <div class="toggle-row">
+              <div><div class="toggle-label">Permitir uso de IA</div><div class="toggle-sub">Los alumnos podrán usar herramientas de IA</div></div>
+              <div class="toggle" id="toggle-ia" onclick="flipToggle()"></div>
+            </div>
+            <div class="modal-actions"><button class="btn" onclick="hideModal()">Cancelar</button><button class="btn primary" onclick="hideModal()"><i class="ti ti-check"></i> Crear actividad</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-alumnos" class="screen">
+      <div class="topbar"><h1>Alumnos — Revolución Industrial</h1><span class="badge gray">22 entregas</span></div>
+      <div style="background:#fff;border:0.5px solid #ddd;border-radius:12px;padding:0 20px;">
+        <div class="student-row">
+          <div style="display:flex;align-items:center;gap:10px;"><div class="avatar">MG</div><div><div style="font-size:13px;font-weight:500;">Martina García</div><div style="font-size:11px;color:#666;">4 versiones · Última: hace 2h</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div><div style="font-size:10px;color:#999;margin-bottom:3px;">Uso IA</div><div class="progress-bar"><div class="progress-fill" style="width:20%;background:#5DCAA5;"></div></div></div><button class="btn" onclick="go('versiones')"><i class="ti ti-history"></i> Ver proceso</button></div>
+        </div>
+        <div class="student-row">
+          <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:#FAEEDA;color:#854F0B;">LR</div><div><div style="font-size:13px;font-weight:500;">Lucas Rodríguez</div><div style="font-size:11px;color:#666;">2 versiones · Última: hace 1 día</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div><div style="font-size:10px;color:#999;margin-bottom:3px;">Uso IA</div><div class="progress-bar"><div class="progress-fill" style="width:78%;background:#FAC775;"></div></div></div><button class="btn" onclick="go('versiones')"><i class="ti ti-history"></i> Ver proceso</button></div>
+        </div>
+        <div class="student-row">
+          <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:#FBEAF0;color:#993556;">SP</div><div><div style="font-size:13px;font-weight:500;">Sofía Pérez</div><div style="font-size:11px;color:#666;">6 versiones · Última: hace 3h</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div><div style="font-size:10px;color:#999;margin-bottom:3px;">Uso IA</div><div class="progress-bar"><div class="progress-fill" style="width:35%;background:#5DCAA5;"></div></div></div><button class="btn" onclick="go('versiones')"><i class="ti ti-history"></i> Ver proceso</button></div>
+        </div>
+        <div class="student-row">
+          <div style="display:flex;align-items:center;gap:10px;"><div class="avatar" style="background:#EEEDFE;color:#534AB7;">JM</div><div><div style="font-size:13px;font-weight:500;">Julián Méndez</div><div style="font-size:11px;color:#666;">1 versión · Sin actividad reciente</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px;"><div><div style="font-size:10px;color:#999;margin-bottom:3px;">Uso IA</div><div class="progress-bar"><div class="progress-fill" style="width:92%;background:#F09595;"></div></div></div><button class="btn" onclick="go('versiones')"><i class="ti ti-history"></i> Ver proceso</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-versiones" class="screen">
+      <div class="topbar"><h1>Proceso de Sofía Pérez</h1><button class="btn" onclick="go('comparar')"><i class="ti ti-columns"></i> Comparar versiones</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div style="background:#f5f5f3;border-radius:8px;padding:14px 16px;"><div style="font-size:11px;color:#999;margin-bottom:6px;">Intervención de IA</div><div style="font-size:18px;font-weight:500;">35%</div><div class="ai-bar"><div class="ai-bar-fill" style="width:35%;background:#5DCAA5;"></div></div><div style="font-size:11px;color:#999;margin-top:4px;">Bajo — producción principalmente propia</div></div>
+        <div style="background:#f5f5f3;border-radius:8px;padding:14px 16px;"><div style="font-size:11px;color:#999;margin-bottom:6px;">Versiones totales</div><div style="font-size:18px;font-weight:500;">6</div><div style="font-size:11px;color:#999;margin-top:8px;">Primera versión hace 5 días</div></div>
+      </div>
+      <div class="section-title">Línea de tiempo del trabajo</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Hoy 10:15 · Versión 6 — Entrega final</div><div class="tl-text">Corrigió la conclusión. Agregó cita bibliográfica. Sin uso de IA detectado.</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Ayer 18:42 · Versión 5</div><div class="tl-text">Reescribió introducción. Aceptó sugerencia de IA sobre estructura de párrafo.</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Hace 3 días · Versión 4</div><div class="tl-text">Amplió el desarrollo. Rechazó 2 sugerencias de IA. Incorporó ejemplo propio.</div></div></div>
+        <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-content"><div class="tl-meta">Hace 4 días · Versiones 2–3</div><div class="tl-text">Borrador inicial. Esquema general. Sin uso de IA registrado.</div></div></div>
+      </div>
+    </div>
+
+    <div id="screen-comparar" class="screen">
+      <div class="topbar"><h1>Comparar versiones</h1><span style="font-size:12px;color:#666;">Sofía Pérez · Versión 3 vs Versión 6</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div><div style="font-size:12px;font-weight:500;color:#666;margin-bottom:6px;">Versión 3 — Hace 3 días</div><div class="diff-block"><span class="diff-del">La industria cambió todo en el siglo XIX.</span><br><span class="diff-neutral">Se generaron nuevas formas de trabajo.<br>Los obreros trabajaban largas horas.</span></div></div>
+        <div><div style="font-size:12px;font-weight:500;color:#666;margin-bottom:6px;">Versión 6 — Entrega final</div><div class="diff-block"><span class="diff-add">La Revolución Industrial transformó profundamente las estructuras sociales y económicas del siglo XIX.</span><br><span class="diff-neutral">Se generaron nuevas formas de trabajo.<br>Los obreros trabajaban largas horas.</span></div></div>
+      </div>
+      <div style="background:#f5f5f3;border-radius:8px;padding:12px 16px;display:flex;align-items:flex-start;gap:10px;">
+        <i class="ti ti-robot" style="font-size:16px;color:#0F6E56;margin-top:2px;"></i>
+        <div><div style="font-size:12px;font-weight:500;margin-bottom:3px;">Intervención de IA detectada</div><div style="font-size:12px;color:#666;">La frase de apertura fue sugerida por IA y aceptada por la alumna. El resto es producción propia.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+function go(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  document.querySelector('[data-screen="' + screen + '"]').classList.add('active');
+  if (screen === 'actividades') hideModal();
+}
+function showModal() { document.getElementById('modal-new').style.display = 'block'; }
+function hideModal() { document.getElementById('modal-new').style.display = 'none'; }
+var iaOn = true;
+function flipToggle() { iaOn = !iaOn; document.getElementById('toggle-ia').classList.toggle('off', !iaOn); }
+</script>
+</body>
+</html>
