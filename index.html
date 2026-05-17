@@ -22,7 +22,7 @@ body { background: #f5f5f3; }
 .screen.active { display: block; }
 .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
 .topbar h1 { font-size: 18px; font-weight: 500; color: #1a1a1a; }
-.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; margin-bottom: 20px; }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #999; margin-bottom: 20px; flex-wrap: wrap; }
 .breadcrumb span { cursor: pointer; }
 .breadcrumb span:hover { color: #1D9E75; }
 .breadcrumb .sep { color: #ccc; }
@@ -72,7 +72,7 @@ body { background: #f5f5f3; }
 .highlight-amber { background: #FAEEDA; border-bottom: 2px solid #854F0B; cursor: pointer; padding: 0 2px; border-radius: 2px; }
 .highlight-red { background: #FCEBEB; border-bottom: 2px solid #A32D2D; cursor: pointer; padding: 0 2px; border-radius: 2px; }
 .highlight-blue { background: #E6F1FB; border-bottom: 2px solid #185FA5; cursor: pointer; padding: 0 2px; border-radius: 2px; }
-.sidebar-right { width: 280px; min-width: 280px; background: #f5f5f3; border-left: 0.5px solid #ddd; padding: 20px 16px; overflow-y: auto; }
+.sidebar-right { width: 290px; min-width: 290px; background: #f5f5f3; border-left: 0.5px solid #ddd; padding: 20px 16px; overflow-y: auto; }
 .sidebar-right-title { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 12px; }
 .suggestion-card { background: #fff; border: 0.5px solid #ddd; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
 .suggestion-type { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
@@ -88,16 +88,27 @@ body { background: #f5f5f3; }
 .bar-label { font-size: 12px; color: #444; width: 200px; flex-shrink: 0; }
 .bar-track { flex: 1; height: 8px; background: #eee; border-radius: 999px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 999px; }
-.correction-layout { display: flex; height: calc(100vh - 110px); gap: 0; }
+.correction-layout { display: flex; height: calc(100vh - 140px); gap: 0; }
 .correction-main { flex: 1; padding: 0 20px 20px 0; overflow-y: auto; }
 .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid #ddd; }
-.toggle-on { width: 36px; height: 20px; border-radius: 999px; background: #1D9E75; position: relative; flex-shrink: 0; }
+.toggle-on { width: 36px; height: 20px; border-radius: 999px; background: #1D9E75; position: relative; flex-shrink: 0; cursor: pointer; }
 .toggle-on::after { content: ''; position: absolute; top: 3px; left: 19px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
-.toggle-off { width: 36px; height: 20px; border-radius: 999px; background: #ccc; position: relative; flex-shrink: 0; }
+.toggle-off { width: 36px; height: 20px; border-radius: 999px; background: #ccc; position: relative; flex-shrink: 0; cursor: pointer; }
 .toggle-off::after { content: ''; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
 .curso-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
 .curso-card:hover { border-color: #1D9E75; }
 .curso-inicial { width: 44px; height: 44px; border-radius: 10px; background: #E1F5EE; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 500; color: #0F6E56; flex-shrink: 0; }
+.form-group { margin-bottom: 16px; }
+.form-label { font-size: 12px; color: #666; margin-bottom: 6px; display: block; font-weight: 500; }
+.form-input { width: 100%; padding: 8px 12px; border-radius: 8px; border: 0.5px solid #ccc; font-size: 13px; color: #1a1a1a; background: #fff; }
+.form-input:focus { outline: none; border-color: #1D9E75; }
+.form-section { background: #f5f5f3; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+.form-section-title { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 14px; }
+.alumno-selector { display: flex; align-items: center; gap: 12px; background: #f5f5f3; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; }
+.alumno-nav { display: flex; align-items: center; gap: 8px; }
+.alumno-nav button { width: 28px; height: 28px; border-radius: 6px; border: 0.5px solid #ccc; background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.alumno-nav button:hover { background: #f5f5f3; }
+.select-input { padding: 7px 12px; border-radius: 8px; border: 0.5px solid #ccc; font-size: 13px; color: #1a1a1a; background: #fff; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -114,41 +125,41 @@ body { background: #f5f5f3; }
 
     <!-- DASHBOARD -->
     <div id="screen-dashboard" class="screen active">
-      <div class="topbar"><h1>Dashboard</h1><span style="font-size:12px;color:#666;">Bienvenida, Delfina</span></div>
+      <div class="topbar"><h1>Dashboard</h1><span style="font-size:12px;color:#666;">Bienvenida, Gabriela</span></div>
       <div class="cards-grid">
         <div class="metric-card"><div class="label">Cursos activos</div><div class="value">3</div><div class="sub">Este cuatrimestre</div></div>
-        <div class="metric-card"><div class="label">Entregas sin revisar</div><div class="value">6</div><div class="sub">En todos los cursos</div></div>
-        <div class="metric-card"><div class="label">Alertas pedagógicas</div><div class="value">8</div><div class="sub">Requieren atención</div></div>
-        <div class="metric-card"><div class="label">Preguntas generadas</div><div class="value">34</div><div class="sub">Para usar en clase</div></div>
+        <div class="metric-card"><div class="label">Entregas sin revisar</div><div class="value">7</div><div class="sub">En todos los cursos</div></div>
+        <div class="metric-card"><div class="label">Alertas pedagógicas</div><div class="value">9</div><div class="sub">Requieren atención</div></div>
+        <div class="metric-card"><div class="label">Preguntas generadas</div><div class="value">28</div><div class="sub">Para usar en clase</div></div>
       </div>
       <div class="two-col">
         <div>
           <div class="section-title">Actividad reciente</div>
           <div class="alert-card">
             <div class="alert-icon red"><i class="ti ti-file-alert"></i></div>
-            <div><div class="alert-title">Respuesta excesivamente genérica</div><div class="alert-meta">Julián Méndez · 3° B Historia · Análisis de fuentes</div></div>
+            <div><div class="alert-title">Código copiado sin modificaciones</div><div class="alert-meta">Julián Méndez · 3° B Informática · TP Algoritmos</div></div>
           </div>
           <div class="alert-card">
             <div class="alert-icon amber"><i class="ti ti-alert-triangle"></i></div>
-            <div><div class="alert-title">Cambio abrupto de complejidad</div><div class="alert-meta">Lucas Rodríguez · 3° B Historia · Ensayo argumentativo</div></div>
+            <div><div class="alert-title">Explicación genérica del código</div><div class="alert-meta">Lucas Rodríguez · 3° B Informática · Trabajo práctico</div></div>
           </div>
           <div class="alert-card">
             <div class="alert-icon blue"><i class="ti ti-info-circle"></i></div>
-            <div><div class="alert-title">Posible error conceptual</div><div class="alert-meta">Sofía Pérez · 4° A Historia · Trabajo práctico</div></div>
+            <div><div class="alert-title">Error conceptual en estructura de datos</div><div class="alert-meta">Sofía Pérez · 4° A Informática · Parcial</div></div>
           </div>
         </div>
         <div>
           <div class="section-title">Mis cursos</div>
           <div class="card" onclick="go('curso-detalle')">
-            <div class="card-info"><div class="title">3° B — Historia</div><div class="meta">28 alumnos · 4 actividades activas</div></div>
+            <div class="card-info"><div class="title">3° B — Informática</div><div class="meta">28 alumnos · 3 actividades activas</div></div>
             <span class="badge amber">6 alertas</span>
           </div>
           <div class="card" onclick="go('curso-detalle')">
-            <div class="card-info"><div class="title">4° A — Historia</div><div class="meta">25 alumnos · 2 actividades activas</div></div>
-            <span class="badge blue">2 alertas</span>
+            <div class="card-info"><div class="title">4° A — Tecnologías de la Información</div><div class="meta">25 alumnos · 2 actividades activas</div></div>
+            <span class="badge blue">3 alertas</span>
           </div>
           <div class="card" onclick="go('curso-detalle')">
-            <div class="card-info"><div class="title">5° C — Ciencias Sociales</div><div class="meta">22 alumnos · 1 actividad activa</div></div>
+            <div class="card-info"><div class="title">5° C — Programación</div><div class="meta">22 alumnos · 1 actividad activa</div></div>
             <span class="badge green">Sin alertas</span>
           </div>
         </div>
@@ -157,27 +168,91 @@ body { background: #f5f5f3; }
 
     <!-- LISTA DE CURSOS -->
     <div id="screen-cursos" class="screen">
-      <div class="topbar"><h1>Cursos</h1><button class="btn primary"><i class="ti ti-plus"></i> Nuevo curso</button></div>
+      <div class="topbar"><h1>Cursos</h1><button class="btn primary" onclick="go('nuevo-curso')"><i class="ti ti-plus"></i> Nuevo curso</button></div>
       <div class="curso-card" onclick="go('curso-detalle')">
         <div style="display:flex;align-items:center;gap:14px;">
           <div class="curso-inicial">3B</div>
-          <div><div style="font-size:14px;font-weight:500;">3° B — Historia</div><div style="font-size:12px;color:#666;margin-top:3px;">28 alumnos · 4 actividades · 6 alertas activas</div></div>
+          <div><div style="font-size:14px;font-weight:500;">3° B — Informática</div><div style="font-size:12px;color:#666;margin-top:3px;">28 alumnos · 3 actividades · 6 alertas activas</div></div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;"><span class="badge amber">6 alertas</span><i class="ti ti-chevron-right" style="color:#999;"></i></div>
       </div>
       <div class="curso-card" onclick="go('curso-detalle')">
         <div style="display:flex;align-items:center;gap:14px;">
           <div class="curso-inicial" style="background:#E6F1FB;color:#185FA5;">4A</div>
-          <div><div style="font-size:14px;font-weight:500;">4° A — Historia</div><div style="font-size:12px;color:#666;margin-top:3px;">25 alumnos · 2 actividades · 2 alertas activas</div></div>
+          <div><div style="font-size:14px;font-weight:500;">4° A — Tecnologías de la Información</div><div style="font-size:12px;color:#666;margin-top:3px;">25 alumnos · 2 actividades · 3 alertas activas</div></div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;"><span class="badge blue">2 alertas</span><i class="ti ti-chevron-right" style="color:#999;"></i></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span class="badge blue">3 alertas</span><i class="ti ti-chevron-right" style="color:#999;"></i></div>
       </div>
       <div class="curso-card" onclick="go('curso-detalle')">
         <div style="display:flex;align-items:center;gap:14px;">
           <div class="curso-inicial" style="background:#EEEDFE;color:#534AB7;">5C</div>
-          <div><div style="font-size:14px;font-weight:500;">5° C — Ciencias Sociales</div><div style="font-size:12px;color:#666;margin-top:3px;">22 alumnos · 1 actividad · Sin alertas</div></div>
+          <div><div style="font-size:14px;font-weight:500;">5° C — Programación</div><div style="font-size:12px;color:#666;margin-top:3px;">22 alumnos · 1 actividad · Sin alertas</div></div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;"><span class="badge green">Sin alertas</span><i class="ti ti-chevron-right" style="color:#999;"></i></div>
+      </div>
+    </div>
+
+    <!-- NUEVO CURSO -->
+    <div id="screen-nuevo-curso" class="screen">
+      <div class="breadcrumb">
+        <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
+        <span class="sep">›</span>
+        <span class="current">Nuevo curso</span>
+      </div>
+      <div class="topbar"><h1>Nuevo curso</h1></div>
+      <div style="max-width:620px;">
+        <div class="form-section">
+          <div class="form-section-title">Información del curso</div>
+          <div class="form-group"><label class="form-label">Nombre del curso</label><input class="form-input" type="text" placeholder="Ej: 3° B — Informática" /></div>
+          <div class="form-group"><label class="form-label">Materia</label>
+            <select class="form-input">
+              <option>Informática</option>
+              <option>Tecnologías de la Información</option>
+              <option>Programación</option>
+              <option>Robótica</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group"><label class="form-label">Año</label>
+              <select class="form-input"><option>1°</option><option>2°</option><option selected>3°</option><option>4°</option><option>5°</option></select>
+            </div>
+            <div class="form-group"><label class="form-label">División</label>
+              <select class="form-input"><option>A</option><option selected>B</option><option>C</option><option>D</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Turno</label>
+            <select class="form-input"><option>Mañana</option><option>Tarde</option><option>Noche</option></select>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Parámetros de corrección por defecto</div>
+          <div style="font-size:12px;color:#666;margin-bottom:14px;">Estos parámetros se aplicarán automáticamente a todas las entregas del curso. Podés modificarlos por actividad.</div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar código copiado sin modificaciones</div><div style="font-size:11px;color:#999;">Señala entregas con fragmentos idénticos a fuentes externas</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Identificar explicaciones genéricas</div><div style="font-size:11px;color:#999;">Alerta cuando la justificación del código carece de especificidad</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar errores conceptuales</div><div style="font-size:11px;color:#999;">Compara afirmaciones con conceptos del programa curricular</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar cambios abruptos de complejidad</div><div style="font-size:11px;color:#999;">Señala inconsistencias en el nivel técnico del trabajo</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row" style="border:none;">
+            <div><div style="font-size:13px;">Generar preguntas de repaso automáticamente</div><div style="font-size:11px;color:#999;">Crea preguntas a partir de cada entrega recibida</div></div>
+            <div class="toggle-off"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn" onclick="go('cursos')">Cancelar</button>
+          <button class="btn primary" onclick="go('cursos')"><i class="ti ti-check"></i> Crear curso</button>
+        </div>
       </div>
     </div>
 
@@ -186,39 +261,39 @@ body { background: #f5f5f3; }
       <div class="breadcrumb">
         <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
         <span class="sep">›</span>
-        <span class="current">3° B — Historia</span>
+        <span class="current">3° B — Informática</span>
       </div>
-      <div class="topbar"><h1>3° B — Historia</h1><button class="btn primary"><i class="ti ti-plus"></i> Nueva actividad</button></div>
+      <div class="topbar"><h1>3° B — Informática</h1><button class="btn primary" onclick="go('nueva-entrega')"><i class="ti ti-plus"></i> Nueva actividad</button></div>
       <div class="cards-grid">
-        <div class="metric-card"><div class="label">Alumnos</div><div class="value">28</div><div class="sub">3 sin entregas recientes</div></div>
-        <div class="metric-card"><div class="label">Actividades activas</div><div class="value">4</div><div class="sub">2 con entrega esta semana</div></div>
+        <div class="metric-card"><div class="label">Alumnos</div><div class="value">28</div><div class="sub">2 sin entregas recientes</div></div>
+        <div class="metric-card"><div class="label">Actividades activas</div><div class="value">3</div><div class="sub">1 con entrega esta semana</div></div>
         <div class="metric-card"><div class="label">Alertas pedagógicas</div><div class="value">6</div><div class="sub">En entregas recientes</div></div>
-        <div class="metric-card"><div class="label">Nivel de comprensión</div><div class="value">67%</div><div class="sub">Promedio del curso</div></div>
+        <div class="metric-card"><div class="label">Nivel de comprensión</div><div class="value">61%</div><div class="sub">Promedio del curso</div></div>
       </div>
       <div class="two-col">
         <div>
           <div class="section-title">Métricas del curso</div>
           <div style="background:#f5f5f3;border-radius:12px;padding:16px 20px;margin-bottom:10px;">
             <div style="font-size:12px;color:#666;margin-bottom:12px;">Conceptos con mayor dificultad</div>
-            <div class="bar-row"><div class="bar-label">Condiciones laborales siglo XIX</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#F09595;"></div></div><span style="font-size:11px;color:#999;">72%</span></div>
-            <div class="bar-row"><div class="bar-label">Causas de la industrialización</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#FAC775;"></div></div><span style="font-size:11px;color:#999;">55%</span></div>
-            <div class="bar-row"><div class="bar-label">Impacto en clases sociales</div><div class="bar-track"><div class="bar-fill" style="width:48%;background:#FAC775;"></div></div><span style="font-size:11px;color:#999;">48%</span></div>
-            <div class="bar-row"><div class="bar-label">Contexto geográfico</div><div class="bar-track"><div class="bar-fill" style="width:30%;background:#5DCAA5;"></div></div><span style="font-size:11px;color:#999;">30%</span></div>
+            <div class="bar-row"><div class="bar-label">Estructuras de control (if/else/for)</div><div class="bar-track"><div class="bar-fill" style="width:68%;background:#F09595;"></div></div><span style="font-size:11px;color:#999;">68%</span></div>
+            <div class="bar-row"><div class="bar-label">Funciones y parámetros</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:#FAC775;"></div></div><span style="font-size:11px;color:#999;">52%</span></div>
+            <div class="bar-row"><div class="bar-label">Depuración de errores</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:#FAC775;"></div></div><span style="font-size:11px;color:#999;">44%</span></div>
+            <div class="bar-row"><div class="bar-label">Variables y tipos de datos</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:#5DCAA5;"></div></div><span style="font-size:11px;color:#999;">28%</span></div>
           </div>
         </div>
         <div>
           <div class="section-title">Patrones detectados</div>
           <div class="alert-card">
-            <div class="alert-icon red"><i class="ti ti-trending-up"></i></div>
-            <div><div class="alert-title">Cambios abruptos de complejidad</div><div class="alert-meta">Presente en 9 de 22 trabajos revisados.</div></div>
+            <div class="alert-icon red"><i class="ti ti-code"></i></div>
+            <div><div class="alert-title">Código sin comentarios ni justificación</div><div class="alert-meta">Presente en 11 de 22 trabajos revisados.</div></div>
           </div>
           <div class="alert-card">
             <div class="alert-icon amber"><i class="ti ti-copy"></i></div>
-            <div><div class="alert-title">Respuestas genéricas similares</div><div class="alert-meta">5 trabajos comparten formulaciones parecidas en la conclusión.</div></div>
+            <div><div class="alert-title">Soluciones idénticas entre alumnos</div><div class="alert-meta">4 trabajos comparten la misma lógica de resolución.</div></div>
           </div>
           <div class="alert-card">
             <div class="alert-icon blue"><i class="ti ti-bulb"></i></div>
-            <div><div class="alert-title">Oportunidad de clase</div><div class="alert-meta">Condiciones laborales aparece mal explicado en la mayoría.</div></div>
+            <div><div class="alert-title">Oportunidad de clase</div><div class="alert-meta">Las estructuras de control siguen siendo el mayor punto de confusión.</div></div>
           </div>
         </div>
       </div>
@@ -243,12 +318,75 @@ body { background: #f5f5f3; }
       </div>
     </div>
 
+    <!-- NUEVA ACTIVIDAD/ENTREGA -->
+    <div id="screen-nueva-entrega" class="screen">
+      <div class="breadcrumb">
+        <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
+        <span class="sep">›</span>
+        <span onclick="go('curso-detalle')">3° B — Informática</span>
+        <span class="sep">›</span>
+        <span class="current">Nueva actividad</span>
+      </div>
+      <div class="topbar"><h1>Nueva actividad</h1></div>
+      <div style="max-width:620px;">
+        <div class="form-section">
+          <div class="form-section-title">Información de la actividad</div>
+          <div class="form-group"><label class="form-label">Nombre de la actividad</label><input class="form-input" type="text" placeholder="Ej: TP — Algoritmos de ordenamiento" /></div>
+          <div class="form-group"><label class="form-label">Consigna</label><textarea class="form-input" rows="3" placeholder="Describí qué deben hacer los alumnos..."></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group"><label class="form-label">Fecha de entrega</label><input class="form-input" type="date" /></div>
+            <div class="form-group"><label class="form-label">Tipo de entrega</label>
+              <select class="form-input"><option>Individual</option><option>Grupal</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Lenguaje o herramienta</label>
+            <select class="form-input">
+              <option>Python</option>
+              <option>Scratch</option>
+              <option>JavaScript</option>
+              <option>HTML/CSS</option>
+              <option>Pseudocódigo</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Parámetros de corrección para esta actividad</div>
+          <div style="font-size:12px;color:#666;margin-bottom:14px;">Heredados del curso. Podés ajustarlos para esta actividad específica.</div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar código copiado sin modificaciones</div><div style="font-size:11px;color:#999;">Señala fragmentos idénticos a fuentes externas o entre alumnos</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Identificar explicaciones genéricas</div><div style="font-size:11px;color:#999;">Alerta cuando la justificación carece de especificidad técnica</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar errores conceptuales</div><div style="font-size:11px;color:#999;">Compara con conceptos esperados para el nivel</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row">
+            <div><div style="font-size:13px;">Detectar cambios abruptos de complejidad</div><div style="font-size:11px;color:#999;">Señala inconsistencias en el nivel técnico del trabajo</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div class="toggle-row" style="border:none;">
+            <div><div style="font-size:13px;">Generar preguntas de repaso automáticamente</div><div style="font-size:11px;color:#999;">Crea preguntas a partir de cada entrega recibida</div></div>
+            <div class="toggle-on"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn" onclick="go('curso-detalle')">Cancelar</button>
+          <button class="btn primary" onclick="go('curso-detalle')"><i class="ti ti-check"></i> Crear actividad</button>
+        </div>
+      </div>
+    </div>
+
     <!-- PERFIL DEL ALUMNO -->
     <div id="screen-alumno-perfil" class="screen">
       <div class="breadcrumb">
         <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
         <span class="sep">›</span>
-        <span onclick="go('curso-detalle')">3° B — Historia</span>
+        <span onclick="go('curso-detalle')">3° B — Informática</span>
         <span class="sep">›</span>
         <span class="current">Lucas Rodríguez</span>
       </div>
@@ -257,30 +395,30 @@ body { background: #f5f5f3; }
         <div class="metric-card"><div class="label">Actividades entregadas</div><div class="value">6</div><div class="sub">de 8 asignadas</div></div>
         <div class="metric-card"><div class="label">Alertas totales</div><div class="value" style="color:#A32D2D;">5</div><div class="sub">En todo el período</div></div>
         <div class="metric-card"><div class="label">Promedio de versiones</div><div class="value">2.1</div><div class="sub">Por trabajo entregado</div></div>
-        <div class="metric-card"><div class="label">Última actividad</div><div class="value" style="font-size:14px;">Hace 1 día</div><div class="sub">Ensayo argumentativo</div></div>
+        <div class="metric-card"><div class="label">Última actividad</div><div class="value" style="font-size:14px;">Hace 1 día</div><div class="sub">TP Algoritmos</div></div>
       </div>
       <div class="two-col">
         <div>
           <div class="section-title">Entregas del alumno</div>
           <div class="card" onclick="go('alumno-seguimiento')">
-            <div class="card-info"><div class="title">Revolución Industrial — Análisis de fuentes</div><div class="meta">Entregado · 2 versiones · 2 alertas</div></div>
+            <div class="card-info"><div class="title">TP — Algoritmos de ordenamiento</div><div class="meta">Entregado · 2 versiones · 2 alertas</div></div>
             <div style="display:flex;align-items:center;gap:6px;"><span class="badge red">2 alertas</span><i class="ti ti-chevron-right" style="color:#999;font-size:14px;"></i></div>
           </div>
           <div class="card" onclick="go('alumno-seguimiento')">
-            <div class="card-info"><div class="title">Primer parcial — Ensayo argumentativo</div><div class="meta">Entregado · 1 versión · 3 alertas</div></div>
+            <div class="card-info"><div class="title">Parcial — Estructuras de control</div><div class="meta">Entregado · 1 versión · 3 alertas</div></div>
             <div style="display:flex;align-items:center;gap:6px;"><span class="badge red">3 alertas</span><i class="ti ti-chevron-right" style="color:#999;font-size:14px;"></i></div>
           </div>
           <div class="card">
-            <div class="card-info"><div class="title">TP grupal — Línea de tiempo siglo XX</div><div class="meta">En proceso · 1 versión · Sin alertas</div></div>
+            <div class="card-info"><div class="title">TP grupal — Proyecto web básico</div><div class="meta">En proceso · 1 versión · Sin alertas</div></div>
             <div style="display:flex;align-items:center;gap:6px;"><span class="badge gray">En proceso</span><i class="ti ti-chevron-right" style="color:#999;font-size:14px;"></i></div>
           </div>
         </div>
         <div>
           <div class="section-title">Evolución a lo largo del tiempo</div>
           <div class="timeline">
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Mayo 2026 · Revolución Industrial</div><div class="tl-text">2 versiones. Cambio abrupto de complejidad en entrega final. Requiere conversación.</div></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Abril 2026 · Primer parcial</div><div class="tl-text">Entrega única. 3 alertas detectadas. Argumentación inconsistente.</div></div></div>
-            <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-content"><div class="tl-meta">Marzo 2026 · Primer TP</div><div class="tl-text">Buen desempeño inicial. Sin alertas. Escritura coherente.</div></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Mayo 2026 · TP Algoritmos</div><div class="tl-text">Código funcional pero sin comentarios. Explicación copiada de fuente externa. 2 alertas.</div></div></div>
+            <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Abril 2026 · Parcial estructuras de control</div><div class="tl-text">Confunde bucles for y while. Usa estructuras complejas sin justificar. 3 alertas.</div></div></div>
+            <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-content"><div class="tl-meta">Marzo 2026 · Primer TP</div><div class="tl-text">Buen desempeño inicial. Código simple pero correcto. Sin alertas.</div></div></div>
           </div>
         </div>
       </div>
@@ -291,13 +429,13 @@ body { background: #f5f5f3; }
       <div class="breadcrumb">
         <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
         <span class="sep">›</span>
-        <span onclick="go('curso-detalle')">3° B — Historia</span>
+        <span onclick="go('curso-detalle')">3° B — Informática</span>
         <span class="sep">›</span>
         <span onclick="go('alumno-perfil')">Lucas Rodríguez</span>
         <span class="sep">›</span>
-        <span class="current">Revolución Industrial</span>
+        <span class="current">TP Algoritmos</span>
       </div>
-      <div class="topbar"><h1>Revolución Industrial — Lucas Rodríguez</h1><button class="btn primary" onclick="go('correccion')"><i class="ti ti-edit"></i> Corregir entrega</button></div>
+      <div class="topbar"><h1>TP Algoritmos — Lucas Rodríguez</h1><button class="btn primary" onclick="go('correccion')"><i class="ti ti-edit"></i> Corregir entrega</button></div>
       <div class="cards-grid-3">
         <div class="metric-card"><div class="label">Versiones totales</div><div class="value">2</div><div class="sub">Primera versión hace 3 días</div></div>
         <div class="metric-card"><div class="label">Alertas detectadas</div><div class="value" style="color:#A32D2D;">2</div><div class="sub">Requieren atención docente</div></div>
@@ -305,51 +443,75 @@ body { background: #f5f5f3; }
       </div>
       <div class="section-title">Línea de tiempo del proceso</div>
       <div class="timeline">
-        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Hace 1 día · Versión 2 — Entrega final</div><div class="tl-text">Agregó introducción y conclusión. Segundo párrafo notablemente más formal que el resto del texto. <span style="color:#A32D2D;font-size:11px;">2 alertas detectadas</span></div></div></div>
-        <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-content"><div class="tl-meta">Hace 3 días · Versión 1 — Borrador inicial</div><div class="tl-text">Esquema general con ideas sueltas. Lenguaje informal y poco desarrollo argumentativo.</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-meta">Hace 1 día · Versión 2 — Entrega final</div><div class="tl-text">Agregó comentarios al código. La explicación escrita cambió abruptamente respecto al borrador. <span style="color:#A32D2D;font-size:11px;">2 alertas detectadas</span></div></div></div>
+        <div class="tl-item"><div class="tl-dot gray"></div><div class="tl-content"><div class="tl-meta">Hace 3 días · Versión 1 — Borrador inicial</div><div class="tl-text">Código incompleto. Sin comentarios. Explicación breve en lenguaje informal.</div></div></div>
       </div>
     </div>
 
     <!-- CORRECCIÓN ASISTIDA -->
     <div id="screen-correccion" class="screen" style="padding:24px 28px 0;">
-      <div class="breadcrumb">
-        <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
-        <span class="sep">›</span>
-        <span onclick="go('curso-detalle')">3° B — Historia</span>
-        <span class="sep">›</span>
-        <span onclick="go('alumno-perfil')">Lucas Rodríguez</span>
-        <span class="sep">›</span>
-        <span class="current">Corrección asistida</span>
+      <div class="topbar" style="margin-bottom:12px;"><h1>Corrección asistida</h1></div>
+      <div class="alumno-selector">
+        <div style="font-size:12px;color:#666;white-space:nowrap;">Curso:</div>
+        <select class="select-input" style="flex:1;">
+          <option>3° B — Informática</option>
+          <option>4° A — Tecnologías de la Información</option>
+          <option>5° C — Programación</option>
+        </select>
+        <div style="font-size:12px;color:#666;white-space:nowrap;">Alumno:</div>
+        <select class="select-input" style="flex:1;">
+          <option>Lucas Rodríguez</option>
+          <option>Martina García</option>
+          <option>Sofía Pérez</option>
+          <option>Julián Méndez</option>
+        </select>
+        <div style="font-size:12px;color:#666;white-space:nowrap;">Entrega:</div>
+        <select class="select-input" style="flex:1;">
+          <option>TP — Algoritmos de ordenamiento</option>
+          <option>Parcial — Estructuras de control</option>
+        </select>
+        <div class="alumno-nav">
+          <button title="Alumno anterior">‹</button>
+          <span style="font-size:11px;color:#999;">2/28</span>
+          <button title="Alumno siguiente">›</button>
+        </div>
       </div>
-      <div class="topbar"><h1>Corrección asistida — Lucas Rodríguez</h1><button class="btn primary" onclick="go('preguntas')"><i class="ti ti-message-question"></i> Generar preguntas</button></div>
       <div class="correction-layout">
         <div class="correction-main">
-          <div style="font-size:12px;color:#666;margin-bottom:12px;">Ensayo argumentativo · Entrega final · Hace 1 día</div>
+          <div style="font-size:12px;color:#666;margin-bottom:12px;">TP — Algoritmos de ordenamiento · Entrega final · Hace 1 día</div>
           <div class="work-area">
-            <p style="margin-bottom:12px;">La Revolución Industrial fue <span class="highlight-amber">un evento muy importante que cambió muchas cosas en el mundo</span>. Surgió en Inglaterra a fines del siglo XVIII y se expandió rápidamente.</p>
-            <p style="margin-bottom:12px;"><span class="highlight-red">La industrialización trajo consigo numerosos cambios sociales, económicos y políticos que transformaron profundamente la estructura de las sociedades occidentales, generando nuevas formas de organización del trabajo, redistribución de la población y emergencia de nuevas clases sociales con intereses divergentes.</span></p>
-            <p style="margin-bottom:12px;">Los obreros trabajaban muchas horas y <span class="highlight-blue">ganaban lo mismo que antes de la revolución</span>. Las condiciones eran muy duras y peligrosas.</p>
-            <p>En conclusión, la Revolución Industrial fue un proceso complejo que tuvo consecuencias tanto positivas como negativas para la sociedad de la época.</p>
+            <p style="margin-bottom:12px;font-family:monospace;font-size:12px;background:#fff;padding:12px;border-radius:8px;border:0.5px solid #ddd;">
+              <span style="color:#999;"># Ordenamiento burbuja</span><br>
+              def bubble_sort(lista):<br>
+              &nbsp;&nbsp;n = len(lista)<br>
+              &nbsp;&nbsp;for i in range(n):<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;for j in range(0, n-i-1):<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if lista[j] > lista[j+1]:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lista[j], lista[j+1] = lista[j+1], lista[j]<br>
+              &nbsp;&nbsp;return lista
+            </p>
+            <p style="margin-bottom:12px;">Explicación: <span class="highlight-red">El algoritmo de ordenamiento burbuja es un método de clasificación simple que funciona comparando repetidamente elementos adyacentes e intercambiándolos si están en el orden incorrecto, con una complejidad temporal de O(n²) en el peor caso.</span></p>
+            <p>El código <span class="highlight-amber">funciona bien para listas pequeñas</span>. <span class="highlight-blue">Es el algoritmo más eficiente para ordenar datos</span> porque hace comparaciones de a dos elementos.</p>
           </div>
           <div style="margin-top:16px;display:flex;gap:16px;">
             <span style="font-size:11px;color:#999;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FAEEDA;border-radius:2px;display:inline-block;"></span>Cambio de complejidad</span>
-            <span style="font-size:11px;color:#999;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FCEBEB;border-radius:2px;display:inline-block;"></span>Respuesta genérica</span>
+            <span style="font-size:11px;color:#999;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#FCEBEB;border-radius:2px;display:inline-block;"></span>Explicación genérica</span>
             <span style="font-size:11px;color:#999;display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#E6F1FB;border-radius:2px;display:inline-block;"></span>Error conceptual</span>
           </div>
         </div>
         <div class="sidebar-right">
           <div class="sidebar-right-title">Observaciones de la IA</div>
           <div class="suggestion-card">
-            <div class="suggestion-type amber">Cambio de complejidad</div>
-            <div class="suggestion-text">La apertura usa lenguaje muy simple comparado con el párrafo siguiente. Puede indicar que partes fueron escritas en momentos distintos o con ayuda externa.</div>
+            <div class="suggestion-type red">Explicación genérica</div>
+            <div class="suggestion-text">La explicación escrita tiene un nivel técnico muy superior al resto del trabajo. Probablemente fue copiada de una fuente externa sin comprensión real.</div>
             <div style="display:flex;gap:6px;margin-top:8px;">
               <button class="btn small"><i class="ti ti-check"></i> Útil</button>
               <button class="btn small"><i class="ti ti-x"></i> Descartar</button>
             </div>
           </div>
           <div class="suggestion-card">
-            <div class="suggestion-type red">Respuesta genérica</div>
-            <div class="suggestion-text">El segundo párrafo tiene un nivel de formalidad notablemente superior al resto. Sugiere revisar si el alumno puede explicar con sus propias palabras lo que escribió.</div>
+            <div class="suggestion-type amber">Cambio de complejidad</div>
+            <div class="suggestion-text">La afirmación "funciona bien para listas pequeñas" es informal y contrasta con la explicación técnica anterior. Sugiere que distintas partes fueron escritas por separado.</div>
             <div style="display:flex;gap:6px;margin-top:8px;">
               <button class="btn small"><i class="ti ti-check"></i> Útil</button>
               <button class="btn small"><i class="ti ti-x"></i> Descartar</button>
@@ -357,19 +519,22 @@ body { background: #f5f5f3; }
           </div>
           <div class="suggestion-card">
             <div class="suggestion-type blue">Error conceptual</div>
-            <div class="suggestion-text">La afirmación sobre salarios puede ser incorrecta. Vale la pena preguntar al alumno sobre esta afirmación en clase.</div>
+            <div class="suggestion-text">Bubble sort no es el algoritmo más eficiente. Es uno de los menos eficientes para grandes volúmenes de datos. Vale la pena preguntar al alumno si conoce alternativas.</div>
             <div style="display:flex;gap:6px;margin-top:8px;">
               <button class="btn small"><i class="ti ti-check"></i> Útil</button>
               <button class="btn small"><i class="ti ti-x"></i> Descartar</button>
             </div>
           </div>
           <div style="margin-top:16px;border-top:0.5px solid #ddd;padding-top:16px;">
-            <div class="sidebar-right-title">Parámetros de esta entrega</div>
-            <div style="font-size:11px;color:#666;margin-bottom:10px;">Configurados para: Ensayo argumentativo</div>
-            <div class="toggle-row"><div style="font-size:12px;">Cambios de complejidad</div><div class="toggle-on"></div></div>
-            <div class="toggle-row"><div style="font-size:12px;">Respuestas genéricas</div><div class="toggle-on"></div></div>
-            <div class="toggle-row" style="border:none;"><div style="font-size:12px;">Errores conceptuales</div><div class="toggle-on"></div></div>
+            <div class="sidebar-right-title">Parámetros activos</div>
+            <div class="toggle-row"><div style="font-size:12px;">Código copiado</div><div class="toggle-on"></div></div>
+            <div class="toggle-row"><div style="font-size:12px;">Explicaciones genéricas</div><div class="toggle-on"></div></div>
+            <div class="toggle-row"><div style="font-size:12px;">Errores conceptuales</div><div class="toggle-on"></div></div>
+            <div class="toggle-row" style="border:none;"><div style="font-size:12px;">Cambios de complejidad</div><div class="toggle-on"></div></div>
             <button class="btn" style="width:100%;justify-content:center;margin-top:10px;font-size:12px;"><i class="ti ti-settings"></i> Editar parámetros</button>
+          </div>
+          <div style="margin-top:16px;border-top:0.5px solid #ddd;padding-top:16px;">
+            <button class="btn primary" style="width:100%;justify-content:center;font-size:12px;" onclick="go('preguntas')"><i class="ti ti-message-question"></i> Generar preguntas</button>
           </div>
         </div>
       </div>
@@ -377,39 +542,73 @@ body { background: #f5f5f3; }
 
     <!-- PREGUNTAS DE REPASO -->
     <div id="screen-preguntas" class="screen">
-      <div class="breadcrumb">
-        <span onclick="go('cursos')"><i class="ti ti-school" style="font-size:12px;"></i> Cursos</span>
-        <span class="sep">›</span>
-        <span onclick="go('curso-detalle')">3° B — Historia</span>
-        <span class="sep">›</span>
-        <span onclick="go('alumno-perfil')">Lucas Rodríguez</span>
-        <span class="sep">›</span>
-        <span class="current">Preguntas de repaso</span>
-      </div>
-      <div class="topbar"><h1>Preguntas de repaso — Lucas Rodríguez</h1><button class="btn primary"><i class="ti ti-download"></i> Exportar</button></div>
+      <div class="topbar"><h1>Preguntas de repaso</h1><button class="btn primary"><i class="ti ti-download"></i> Exportar</button></div>
       <div style="background:#f5f5f3;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#666;display:flex;align-items:center;gap:8px;">
         <i class="ti ti-robot" style="color:#1D9E75;font-size:16px;"></i>
-        Preguntas generadas a partir del ensayo argumentativo. Podés usarlas en clase para validar la comprensión del alumno.
+        Preguntas generadas para <strong style="color:#1a1a1a;">Lucas Rodríguez</strong> a partir del TP de Algoritmos. Podés editarlas, descartarlas o agregar las tuyas.
       </div>
-      <div class="question-card">
-        <div class="question-num">Pregunta 1 — Comprensión conceptual</div>
-        <div class="question-text">¿Podés explicar con tus propias palabras qué cambios sociales trajo la Revolución Industrial en Inglaterra?</div>
-        <div class="question-context">Relacionada con el segundo párrafo donde se menciona la reorganización social.</div>
-      </div>
-      <div class="question-card">
-        <div class="question-num">Pregunta 2 — Verificación de dato</div>
-        <div class="question-text">En tu trabajo mencionás que los obreros ganaban lo mismo que antes de la revolución. ¿En qué fuente basaste esa afirmación?</div>
-        <div class="question-context">Relacionada con la alerta de posible error conceptual detectada.</div>
-      </div>
-      <div class="question-card">
-        <div class="question-num">Pregunta 3 — Profundización</div>
-        <div class="question-text">¿Qué diferencias existían entre las condiciones laborales al inicio y al final del siglo XIX en Inglaterra?</div>
-        <div class="question-context">Disparador para ampliar el análisis más allá de lo presentado.</div>
-      </div>
-      <div class="question-card">
-        <div class="question-num">Pregunta 4 — Reflexión crítica</div>
-        <div class="question-text">Si tuvieras que elegir un aspecto positivo y uno negativo de la industrialización para defender en un debate, ¿cuáles elegirías y por qué?</div>
-        <div class="question-context">Para evaluar capacidad argumentativa y pensamiento crítico.</div>
+      <div class="two-col" style="margin-bottom:20px;">
+        <div>
+          <div class="section-title">Generadas por IA</div>
+          <div class="question-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="question-num">Pregunta 1 — Comprensión conceptual</div>
+              <button class="btn small"><i class="ti ti-trash"></i></button>
+            </div>
+            <div class="question-text">¿Podés explicar con tus propias palabras cómo funciona el algoritmo bubble sort paso a paso?</div>
+            <div class="question-context">Relacionada con la explicación genérica detectada en el trabajo.</div>
+          </div>
+          <div class="question-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="question-num">Pregunta 2 — Error conceptual</div>
+              <button class="btn small"><i class="ti ti-trash"></i></button>
+            </div>
+            <div class="question-text">¿Por qué en tu trabajo decís que bubble sort es el más eficiente? ¿Conocés algún algoritmo más eficiente para listas grandes?</div>
+            <div class="question-context">Relacionada con el error conceptual detectado sobre eficiencia.</div>
+          </div>
+          <div class="question-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="question-num">Pregunta 3 — Profundización</div>
+              <button class="btn small"><i class="ti ti-trash"></i></button>
+            </div>
+            <div class="question-text">¿Qué pasa si la lista que querés ordenar ya está ordenada? ¿El algoritmo igual recorre todos los elementos?</div>
+            <div class="question-context">Para evaluar comprensión del comportamiento del algoritmo en distintos casos.</div>
+          </div>
+          <div class="question-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="question-num">Pregunta 4 — Aplicación</div>
+              <button class="btn small"><i class="ti ti-trash"></i></button>
+            </div>
+            <div class="question-text">Si tuvieras que ordenar una lista de 10.000 elementos, ¿usarías bubble sort? ¿Por qué sí o por qué no?</div>
+            <div class="question-context">Para evaluar criterio técnico y pensamiento crítico.</div>
+          </div>
+        </div>
+        <div>
+          <div class="section-title">Mis preguntas</div>
+          <div class="question-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div class="question-num">Pregunta docente 1</div>
+              <button class="btn small"><i class="ti ti-trash"></i></button>
+            </div>
+            <div class="question-text">¿Podés modificar el código para que también muestre cuántas comparaciones hizo el algoritmo?</div>
+            <div class="question-context">Agregada manualmente por la docente.</div>
+          </div>
+          <div style="background:#f5f5f3;border-radius:12px;padding:16px;margin-top:4px;">
+            <div style="font-size:12px;font-weight:500;color:#1a1a1a;margin-bottom:10px;">Agregar pregunta propia</div>
+            <textarea class="form-input" rows="3" placeholder="Escribí tu pregunta acá..." style="margin-bottom:10px;"></textarea>
+            <div class="form-group">
+              <label class="form-label">Tipo de pregunta</label>
+              <select class="form-input">
+                <option>Comprensión conceptual</option>
+                <option>Verificación de dato</option>
+                <option>Profundización</option>
+                <option>Aplicación práctica</option>
+                <option>Reflexión crítica</option>
+              </select>
+            </div>
+            <button class="btn primary" style="width:100%;justify-content:center;"><i class="ti ti-plus"></i> Agregar pregunta</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -424,6 +623,8 @@ function go(screen) {
   if (navItem) navItem.classList.add('active');
   var map = {
     'curso-detalle': 'cursos',
+    'nuevo-curso': 'cursos',
+    'nueva-entrega': 'cursos',
     'alumno-perfil': 'cursos',
     'alumno-seguimiento': 'cursos',
     'correccion': 'correccion',
